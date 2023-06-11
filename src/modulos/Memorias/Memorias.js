@@ -9,8 +9,12 @@ function Memoria(){
     const [cards, setCards] = useState([]);
 
     const handleFormSubmit = (data) => {
-        // data.imageUrl = URL.createObjectURL(data.image);
-        setCards((prevCards) => [...prevCards, data]);
+        if (data.image) {
+            const imageUrl = URL.createObjectURL(data.image);
+            setCards((prevCards) => [...prevCards, { ...data, imageUrl }]);
+        } else {
+            setCards((prevCards) => [...prevCards, data]);
+        }
         console.log(data);
     };
 
@@ -27,7 +31,7 @@ function Memoria(){
                                 creator={card.creator}
                                 title={card.title}
                                 comment={card.comment}
-                                image={card.image}/>
+                                image={card.imageUrl}/>
                             ))}
                         </div>
                     </Col>
